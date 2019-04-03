@@ -16,20 +16,26 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
+//Create the GameObject Constructor and give it values using "this"
 function GameObject(args){
   this.createdAt = args.createdAt;
   this.name = args.name;
   this.dimensions = args.dimensions;
 }
 
+//Assign the prototype of GameObject the method of 'destroy' 
 GameObject.prototype.destroy = function(){
   return ` ${this.name} was removed from the game.`;
 }
 
+//Assign the prototype of CharacterStats a method of take damage
 CharacterStats.prototype.takeDamage =function(){
   return `${this.name} took damage`
 }
 
+// Assign the CharacterStats prototype to inherit the prototype  values of the GameObject prototype which are below
+
+// The emthod of 'destroy()'
 
 CharacterStats.prototype = Object.create(GameObject.prototype)
 
@@ -40,13 +46,28 @@ CharacterStats.prototype = Object.create(GameObject.prototype)
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+//Create the CharacterStats Constrcutor that uses's the method of '.call()' and uses the 'this' keyword as the first value and then the second value of args
+
+// This is referring to the constructor that .call is used on
 function CharacterStats(args){
   GameObject.call(this, args)
   this.healthPoints = args.healthPoints;
 }
 
+//The above constructor in all reality looks like the following
+
+// function CharacterStats(args){
+//  this.createdAt = args.createdAt;
+//  this.name = args.name;
+//  this.dimensions = args.dimensions;
+//  this.healthPoints = args.healthPoints;
+// }
+
+// CharacterStats prototype is inheriting the prototype of GameObject constructor
 CharacterStats.prototype = Object.create(GameObject.prototype)
 
+// Add a method into the prototype of the CharacterStats constructor
 CharacterStats.prototype.takeDamage = function () {
   return `${this.name} took damage.`
 }
@@ -68,9 +89,37 @@ function Humanoid(args){
   this.language = args.language;
   
 }
+//The above constructor in all reality looks like the following
 
+// function CharacterStats(args){
+
+  //------ GameObject Constructor -------- //
+
+//  this.createdAt = args.createdAt;
+//  this.name = args.name;
+//  this.dimensions = args.dimensions;
+
+  //------ End GameObject Constructor -------- //
+
+  //------ CharacterStats Constructor -------- //
+
+//  this.healthPoints = args.healthPoints;
+
+  //------ End CharacterStats Constructor -------- //
+
+  //------ Humanoid Constructor -------- //
+
+//  this.team = args.team;
+//  this.weapons = args.weapons;
+//  this.language = args.language;
+
+  //------ Humanoid Constructor -------- //
+// }
+
+//  The Humanoid prototype is inheriting the prototype of CharacterStats constructor
 Humanoid.prototype = Object.create(CharacterStats.prototype)
 
+// Add a method into the prototype of the Humanoid constructor
 Humanoid.prototype.greet =function(){
   return `${this.name} offers a greeting in ${this.language}`
 }
